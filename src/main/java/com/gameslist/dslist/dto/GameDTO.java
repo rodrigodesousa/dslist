@@ -1,6 +1,7 @@
 package com.gameslist.dslist.dto;
 
 import com.gameslist.dslist.entities.Game;
+import com.gameslist.dslist.projections.GameMinProjection;
 import org.springframework.beans.BeanUtils;
 
 public class GameDTO {
