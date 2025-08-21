@@ -3,6 +3,7 @@ package com.gameslist.dslist.services;
 import com.gameslist.dslist.dto.GameDTO;
 import com.gameslist.dslist.dto.GameMinDTO;
 import com.gameslist.dslist.entities.Game;
+import com.gameslist.dslist.exceptions.GameEsgotadoException;
 import com.gameslist.dslist.projections.GameMinProjection;
 import com.gameslist.dslist.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,13 @@ public class GameService {
 
     @Transactional(readOnly = true)
     public GameDTO findById(Long id){
-        Game result = gameRepository.findById(id).get();
+        var game = gameRepository.findById(id);
+
+        if(game.isEmpty()){
+            throw new GameEsgotadoException();
+        }
+
+        Game result = game.get();
         return new GameDTO(result);
     }
 
